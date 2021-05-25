@@ -3,7 +3,12 @@ import React from "react";
 export default class CardServico extends React.Component{
     render(){
         return(
-            <h3>Card</h3>
+            <div>
+                <h3>Nome serviço</h3>
+                <p>Descrição</p>
+                <p>R$ Preço </p>
+            </div>
+
         )
     }
 }
