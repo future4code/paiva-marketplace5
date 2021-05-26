@@ -1,4 +1,11 @@
 import React from "react";
+import Axios from "axios";
+
+
+const BASE_URL = "https://labeninjas.herokuapp.com"
+const header = {
+   headers: {Authorization: "65cd8b44-bc64-4203-8eda-5e79cb914ff7"}
+}   
 
 export default class Cadastro extends React.Component{
 
@@ -6,11 +13,16 @@ export default class Cadastro extends React.Component{
         nome: "",
         descricao: "",
         preco: "",
-        pagamento: ""
+        pagamento: [],
+        date: "",
+
+        paypal:false,
+        boleto:false
     }
 
     /////////////HANDLE////////////////////////////////
     handleNome = (event) => {
+        this.setState({nome: event.target.value})
     }
 
     handleDescricao = (event) => {
@@ -18,19 +30,59 @@ export default class Cadastro extends React.Component{
     }
 
     handlePreco = (event) => {
-        this.setState({descricao: event.target.value})
+        this.setState({preco: event.target.value})
     }
 
-    handlePagamento = (event) => {
-        this.setState({pagamento: event.target.value})
+    handleData = (event) => {
+        this.setState({date: event.target.value})
+    }
+
+    handlePaypal = (event) => {
+        this.setState({paypal: event.target.checked})
+        console.log(this.state.paypal)
+        
+    }
+
+    handleBoleto = (event) => {
+        this.setState({boleto: event.target.checked})
+        console.log(this.state.boleto)
+        
     }
 
 
     //////////////CADASTRO/////////////////////////////////
+
     cadastrar = () => {
-        alert("Ainda em construção")
+        const metodoPagamento = [] // Array de metodo de pagamento
+        
+        if(this.state.paypal){
+            metodoPagamento.push('PayPal')
+        }
+        if(this.state.boleto){
+            metodoPagamento.push('Boleto')
+        }
+        
+
+        const body = { 
+
+            "title": this.state.nome,
+            "description": this.state.descricao,
+            "price":parseInt(this.state.preco),
+            "paymentMethods":metodoPagamento,
+            "dueDate": this.state.date
+        }
+
+        Axios
+        .post(BASE_URL + "/jobs",body,header)
+        .then((resposta) => {
+            alert(resposta.data.message)
+        })
+        .catch((erro) => {
+            alert(erro.message)
+        })
     }
 
+    
 
     render(){
         return(
@@ -46,26 +98,36 @@ export default class Cadastro extends React.Component{
                 />
 
                 <input
+                type = "number"
                 placeholder = "Preço"
                 onChange = {this.handlePreco}
+                />
+
+                
+                <input
+                type = "date"
+                placeholder = "Data"
+                onChange = {this.handleData}
                 />
 
                 <label for="Paypal">Paypal</label>
                 <input
                 type="checkbox"
                 id="Paypal"
-                name="Paypal"
+                name="pagamento"
                 value="Paypal"
-                onChange = {this.handlePagamento}
+                checked = {this.state.paypal}
+                onChange = {this.handlePaypal}
                 />
 
                 <label for="Boleto">Boleto</label>
                 <input
                 type="checkbox"
                 id="Boleto"
-                name="Boleto"
+                name="pagamento"
                 value="Boleto"
-                onChange = {this.handlePagamento}
+                checked = {this.state.boleto}
+                onChange = {this.handleBoleto}
                 />
 
                 <button onClick = {this.cadastrar}>Cadastro</button>

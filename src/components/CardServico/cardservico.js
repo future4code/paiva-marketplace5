@@ -1,11 +1,31 @@
 import React from "react";
 import Axios from "axios";
+import styled from 'styled-components'
 
 const BASE_URL = "https://labeninjas.herokuapp.com"
 const header = {
    headers: {Authorization: "65cd8b44-bc64-4203-8eda-5e79cb914ff7"}
 }   
+
+
+const Div = styled.div`
+    display: grid;
+  grid-template-columns: 1fr 1fr ;
+  grid-template-rows: 1fr 1fr 1fr;
+
+
+`
+
+const Card = styled.div`
+    background: gray;
+    width: 500px;
+    padding: 1rem;
+    margin: 1rem;
+    border: solid 1px black;
+`
 export default class CardServico extends React.Component{
+
+    
 
     state = {
         jobs : []
@@ -52,22 +72,23 @@ export default class CardServico extends React.Component{
     render(){
 
         const jobsList = this.state.jobs.map((job) => {
-            return <div key = {job.id}>
+            return <Card key = {job.id}>
                 <h3>{job.title}</h3>
                 <p>{job.description}</p>
-                <p>{job.price}</p>
+                <p>R${job.price}</p>
+                <p>{job.paymentMethods.join(',')}</p>
                 <p>{job.taken ? 'Contratado':'Não contratado'}</p>
                 <button onClick = {() => this.Contratar(job.id,job.taken)}>
                     Contratar Serviço
                 </button>
-            </div>
+            </Card>
             
         }) 
 
         return(
-            <div>
+            <Div>
             {jobsList}
-            </div>
+            </Div>
         )
     }
 }
