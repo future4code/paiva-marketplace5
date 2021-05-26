@@ -1,6 +1,6 @@
 import React from 'react'
 import { AppContainer } from './components/AppContainer'
-import {FiltroOrdernar} from './components/FiltroOrdenar'
+import {FiltroOrdernar} from './components/FiltroOrdenar/FiltroOrdenar'
 
 class App extends React.Component {
 	render(){
