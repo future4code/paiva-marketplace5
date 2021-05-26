@@ -13,6 +13,7 @@ export default class CardServico extends React.Component{
 
     componentDidMount(){
         this.getJob() //Buscando lista de trabalho
+        console.log(this.state.jobs)
     }
 
     getJob = () => {
@@ -20,6 +21,21 @@ export default class CardServico extends React.Component{
             .get(BASE_URL + "/jobs",header)
             .then((resposta) => {
                 this.handleJobs(resposta.data.jobs) //Enviando a lista de trabalho
+            })
+            .catch((erro) => {
+                alert(erro.statusText)
+            })
+    }
+
+    Contratar = (id,taken) => {
+        const body = {
+            "taken": !taken
+        }
+
+        Axios
+            .post(BASE_URL +"/jobs/"+id,body,header)
+            .then((resposta) => {
+                this.getJob()
             })
             .catch((erro) => {
                 alert(erro.statusText)
@@ -36,10 +52,14 @@ export default class CardServico extends React.Component{
     render(){
 
         const jobsList = this.state.jobs.map((job) => {
-            return <div>
+            return <div key = {job.id}>
                 <h3>{job.title}</h3>
                 <p>{job.description}</p>
                 <p>{job.price}</p>
+                <p>{job.taken ? 'Contratado':'Não contratado'}</p>
+                <button onClick = {() => this.Contratar(job.id,job.taken)}>
+                    Contratar Serviço
+                </button>
             </div>
             
         }) 
