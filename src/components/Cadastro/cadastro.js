@@ -52,18 +52,18 @@ export default class Cadastro extends React.Component{
 
                 <label for="Paypal">Paypal</label>
                 <input
-                type="radio"
+                type="checkbox"
                 id="Paypal"
-                name="pagamento"
+                name="Paypal"
                 value="Paypal"
                 onChange = {this.handlePagamento}
                 />
 
                 <label for="Boleto">Boleto</label>
                 <input
-                type="radio"
+                type="checkbox"
                 id="Boleto"
-                name="pagamento"
+                name="Boleto"
                 value="Boleto"
                 onChange = {this.handlePagamento}
                 />
