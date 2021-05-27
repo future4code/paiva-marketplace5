@@ -1,6 +1,13 @@
 import React from "react";
 import Axios from "axios";
 
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
+import { Alert, AlertTitle } from '@material-ui/lab';
+
+import { ThemeProvider } from '@material-ui/styles';
+import {theme} from '../theme'
 
 const BASE_URL = "https://labeninjas.herokuapp.com"
 const header = {
@@ -17,7 +24,10 @@ export default class Cadastro extends React.Component{
         date: "",
 
         paypal:false,
-        boleto:false
+        boleto:false,
+
+        cadastro: '0',
+        mensagem: ""
     }
 
     /////////////HANDLE////////////////////////////////
@@ -75,9 +85,12 @@ export default class Cadastro extends React.Component{
         Axios
         .post(BASE_URL + "/jobs",body,header)
         .then((resposta) => {
+            this.setState({cadastro:'cadastrado',mensagem:resposta.data.message})
             alert(resposta.data.message)
+            
         })
         .catch((erro) => {
+            this.setState({cadastro:'erro',mensagem:erro.message})
             alert(erro.message)
         })
     }
@@ -85,54 +98,74 @@ export default class Cadastro extends React.Component{
     
 
     render(){
+
+            // switch(this.state.cadastro){
+            //     case("cadastrado"):
+            //     return(
+            //         <Alert severity="success">
+            //             <AlertTitle>{this.state.mensagem}</AlertTitle>
+            //         </Alert>
+            //     )
+            //     case("erro"):
+            //     return(
+            //         <Alert severity="error">
+            //             <AlertTitle>{this.state.mensagem}</AlertTitle>
+            //         </Alert>
+            //     )
+            // }
+
         return(
-            <div>
-                <input
-                placeholder = "Nome"
-                onChange = {this.handleNome}
-                />
+            <ThemeProvider theme={theme}>
+                <div>
+                    <TextField
+                    placeholder = "Nome"
+                    onChange = {this.handleNome}
+                    />
 
-                <input
-                placeholder = "Descrição"
-                onChange = {this.handleDescricao}
-                />
+                    <TextField
+                    placeholder = "Descrição"
+                    onChange = {this.handleDescricao}
+                    />
 
-                <input
-                type = "number"
-                placeholder = "Preço"
-                onChange = {this.handlePreco}
-                />
+                    <TextField
+                    type = "number"
+                    placeholder = "Preço"
+                    onChange = {this.handlePreco}
+                    />
 
-                
-                <input
-                type = "date"
-                placeholder = "Data"
-                onChange = {this.handleData}
-                />
+                    
+                    <TextField
+                    type = "date"
+                    placeholder = "Data"
+                    onChange = {this.handleData}
+                    />
 
-                <label for="Paypal">Paypal</label>
-                <input
-                type="checkbox"
-                id="Paypal"
-                name="pagamento"
-                value="Paypal"
-                checked = {this.state.paypal}
-                onChange = {this.handlePaypal}
-                />
+                    <label for="Paypal">Paypal</label>
+                    <Checkbox
+                    color="primary"
+                    type="checkbox"
+                    id="Paypal"
+                    name="pagamento"
+                    value="Paypal"
+                    checked = {this.state.paypal}
+                    onChange = {this.handlePaypal}
+                    />
 
-                <label for="Boleto">Boleto</label>
-                <input
-                type="checkbox"
-                id="Boleto"
-                name="pagamento"
-                value="Boleto"
-                checked = {this.state.boleto}
-                onChange = {this.handleBoleto}
-                />
+                    <label for="Boleto">Boleto</label>
+                    <Checkbox
+                    color="primary"
+                    type="checkbox"
+                    id="Boleto"
+                    name="pagamento"
+                    value="Boleto"
+                    checked = {this.state.boleto}
+                    onChange = {this.handleBoleto}
+                    />
 
-                <button onClick = {this.cadastrar}>Cadastro</button>
+                    <Button variant="contained" color="primary" onClick = {this.cadastrar}>Cadastro</Button>
 
-            </div>
+                </div>
+            </ThemeProvider>
         )
     }
 }
