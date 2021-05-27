@@ -40,9 +40,14 @@ export default class CardServico extends React.Component{
     }
 
     componentDidUpdate() {
-        localStorage.setItem("idServico", JSON.stringify(this.state.idContrato));
-
+        console.log(this.state.idContrato)
+        if(this.state.idContrato.length > 0){
+            localStorage.setItem("idServico", JSON.stringify(this.state.idContrato));
+        }
+        
     }
+
+
     getJob = () => {
         Axios
             .get(BASE_URL + "/jobs",header)
@@ -60,16 +65,16 @@ export default class CardServico extends React.Component{
         }
 
         Axios
-            .post(BASE_URL +"/jobs/"+id,body,header)
+            .post(BASE_URL +"/jobs/"+id,body,header) //envia taken inverso ao que estava 
             .then((resposta) => {
                 const idServico = id
-                this.setState({idContrato: [this.state.idContrato,idServico]})
-                console(this.state.idContrato)
-                this.getJob()
+                this.setState({idContrato: [...this.state.idContrato,idServico]}) //Envia ID do serviço para o state
+                alert(resposta.data.message)
+                this.getJob() //atualiza a lista de trabalho
 
             })
             .catch((erro) => {
-                alert(erro.statusText)
+                alert(erro)
             })
     }
 
@@ -90,7 +95,7 @@ export default class CardServico extends React.Component{
                             <Typography variant="body2" component="p">{job.description}</Typography>
                             <p>R${job.price}</p>
                             <p>{job.paymentMethods.join(',')}</p>
-                            <p>{job.taken ? 'Contratado':'Não contratado'}</p>
+                            <p>{job.taken ? 'Contratado':'Não contratado'}</p> 
                         </CardContent>
                         <CardActions>
                             <Button size="small" onClick = {() => this.Contratar(job.id,job.taken)}>
