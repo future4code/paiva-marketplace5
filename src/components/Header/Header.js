@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import logo from './img/labeninjas2.png';
-import cart from './img/cart_ninja.jpg';
+import logo from '../img/labeninjas2.png';
+import cart from '../img/cart_ninja.jpg';
 
 
 
@@ -144,22 +144,31 @@ export default class Header extends React.Component {
   render() {
     return (
       <HeaderContainer>
-        
-        <ServiceContainer><ButtonService>Ofertar Serviço</ButtonService></ServiceContainer>
-        <LogoButton><LogoContainer><Logo src={logo}></Logo></LogoContainer></LogoButton>
+
+        <ServiceContainer>
+          <ButtonService onClick={this.props.servicePage}>
+            Ofertar Serviço
+          </ButtonService>
+        </ServiceContainer>
+        <LogoButton>
+          <LogoContainer>
+            <Logo src={logo} onClick={this.props.homePage}>
+            </Logo>
+          </LogoContainer>
+        </LogoButton>
         <ClientContainer>
-            <ButtonClient>Login</ButtonClient>
-            <ButtonCart><Cart img src={cart}></Cart>
-                <CartContainer>Carrinho</CartContainer>
-            </ButtonCart>
+          <ButtonClient>Login</ButtonClient>
+          <ButtonCart><Cart img src={cart}></Cart>
+            <CartContainer>Carrinho</CartContainer>
+          </ButtonCart>
         </ClientContainer>
 
         <SelectionBox>
-            <h3>Categorias</h3>
-            <button type="submit">Assistência Técnica</button>
-            <button type="submit">Consultoria</button>
-            <button type="submit">Web Design</button>
-            <button type="submit">Reformas</button>
+          <h3>Categorias</h3>
+          <button type="submit">Assistência Técnica</button>
+          <button type="submit">Consultoria</button>
+          <button type="submit">Web Design</button>
+          <button type="submit">Reformas</button>
         </SelectionBox>
       </HeaderContainer>
     )
