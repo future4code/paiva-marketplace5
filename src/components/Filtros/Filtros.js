@@ -5,7 +5,7 @@ export default class Filtros extends React.Component {
 
     state = {
         inputMin: "",
-        inputMax: "1000",
+        inputMax: Infinity,
         inputTitulo: "",
         inputDescricao: "",
         servicos: [],
@@ -20,15 +20,13 @@ export default class Filtros extends React.Component {
       onChangeMax = (e) => {
         this.setState({inputMax: e.target.value})
         if (e.target.value === "") {
-          this.setState({inputMax: 10000})
+          this.setState({inputMax: Infinity})
         }
       }
       onChangeInputTitulo = (e) => {
         this.setState({inputTitulo: e.target.value})       
       }
-      // onChangeInputDescricao = (e) => {
-      //   this.setState({inputDescricao: e.target.value})       
-      // }
+
       //Método API
       getAllJobs = () => {
         const baseURL = "https://labeninjas.herokuapp.com/jobs";
@@ -90,11 +88,7 @@ export default class Filtros extends React.Component {
               <input
                 onChange={this.onChangeInputTitulo}
               />
-
-              {/* <label>Descrição: </label>
-              <input
-                onChange={this.onChangeInputDescricao}
-              /> */}
+              
               {teste}
             </div>
         )
