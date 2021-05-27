@@ -9,9 +9,9 @@ class App extends React.Component {
 	render(){
 	return (
  	<div>
-        {/* <AppContainer /> */}
-		{/* <FiltroOrdenar/> */}
-        {/* <Header /> */}
+        <AppContainer />
+		<FiltroOrdenar/>
+        <Header />
 		<Filtros/>
 	</div>	
 
