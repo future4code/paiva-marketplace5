@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-class FiltroOrdernar extends React.Component {
+class FiltroOrdenar extends React.Component {
   state = {
     arrayServico: [
       // {
@@ -178,4 +178,4 @@ class FiltroOrdernar extends React.Component {
   }
 }
 
-export default FiltroOrdernar;
+export default FiltroOrdenar;
