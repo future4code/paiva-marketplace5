@@ -6,7 +6,7 @@ export default class Filtros extends React.Component {
     state = {
         inputMin: "",
         inputMax: "",
-        InputServico: "",
+        inputServico: "",
         servicos: [],
       }
       componentDidMount() {
@@ -20,9 +20,9 @@ export default class Filtros extends React.Component {
         this.setState({inputMax: e.target.value})
       }
       onChangeInputServico = (e) => {
-        this.setState({inputNome: e.target.value})
-        
-      }  
+        this.setState({inputServico: e.target.value})       
+      }
+
       //Método API
       getAllJobs = () => {
         const baseURL = "https://labeninjas.herokuapp.com/jobs";
@@ -40,27 +40,40 @@ export default class Filtros extends React.Component {
             console.log(err.data);
           });
       }
-    render() {
-        return (
-            <div>
-                <label>Valor máximo: </label>
-                <input type = "number"
-                    onChange={this.onChangeMax}
-                />
-        
-                <br/>
-            
-                <label>Valor Mínimo: </label>
-                <input type = "number"
-                    onChange={this.onChangeMin}
-                />
-        
-                <br/>
 
-                <label>Serviço: </label>
-                <input
-                    onChange={this.onChangeInputServico}
-                />
+      listaFiltrada = () => {
+        return this.state.servicos
+        .filter((servico) => servico.title.includes(this.state.inputServico))
+        .filter((servico) => servico.description.includes(this.state.inputServico))
+        .filter((servico) => servico.price <= this.state.inputMax)
+        .filter((servico) => servico.price >= this.state.inputMin)
+      }
+
+    render() {
+
+      console.log(this.listaFiltrada())
+       
+        return (
+          <div>
+              <label>Valor mínimo: </label>
+              <input type = "number"
+                onChange={this.onChangeMin}
+              />
+
+              <br/>
+
+              <label>Valor máximo: </label>
+              <input type = "number"
+                onChange={this.onChangeMax}
+              />
+                          
+              <br/>
+
+              <label>Serviço: </label>
+              <input
+                onChange={this.onChangeInputServico}
+              />
+
             </div>
         )
     }
