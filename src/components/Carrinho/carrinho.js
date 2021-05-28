@@ -43,7 +43,6 @@ export default class Carrinho extends React.Component{
                 .get(BASE_URL + `/jobs/${servico}`,header)
                 .then((resposta) => {
                     this.setState({servicosCarrinho: [...this.state.servicosCarrinho,resposta.data]})
-                    console.log(this.state.servicosCarrinho)
                 })
                 .catch((erro) => {
                     alert(erro.message)
@@ -57,6 +56,22 @@ export default class Carrinho extends React.Component{
         alert("Em construção")
     }
 
+    Contratar = (id) => {
+        const body = {
+            "taken": false
+        }
+
+        Axios
+            .post(BASE_URL +"/jobs/"+id,body,header) //envia taken falso
+            .then((resposta) => {
+                alert(resposta.data.message)
+
+            })
+            .catch((erro) => {
+                alert(erro)
+            })
+    }
+
     apagarPedido = (id) =>{
         const novoPedido = [...this.state.servicosCarrinho]
 
@@ -65,17 +80,17 @@ export default class Carrinho extends React.Component{
         })
 
         this.setState({servicosCarrinho: pedidoFiltrado})
-
-        //Ainda estou trabalhando para remover do LocalStore
+        console.log(pedidoFiltrado)
     
-        // pedidoFiltrado.map((pedido) => {
-        //     const storeFiltrado = [...storeFiltrado,pedido.id]   
-        //     console.log(storeFiltrado)        
-        // })
+       const idFiltrado = pedidoFiltrado.map((pedido) => {
+            return pedido.id
+        })
 
-
-        // localStorage.setItem("idServico", JSON.stringify());
+        localStorage.setItem("idServico", JSON.stringify(idFiltrado));
+        this.Contratar(id) //Liberar serviço para contrato 
     }
+
+
 
 
 
