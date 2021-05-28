@@ -16,6 +16,7 @@ box-shadow: 0px 3px 6px;
 opacity: 1;
 position: fixed;
 padding: 5px;
+margin-bottom: 100%;
 `
 const ButtonsContainer = styled.div`
 display: flex;

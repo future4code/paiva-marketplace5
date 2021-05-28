@@ -3,6 +3,7 @@ import React from 'react'
 import FiltroOrdenar from './components/FiltroOrdenar/FiltroOrdenar'
 import Filtros from './components/Filtros/Filtros';
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 
 class App extends React.Component {
@@ -11,8 +12,9 @@ class App extends React.Component {
  	<div>
         {/* <AppContainer /> */}
 		{/* <FiltroOrdenar/> */}
-        {/* <Header /> */}
-		<Filtros/>
+        {/*<Header />*/}
+		{<Footer />}
+		{/*<Filtros/>*/}
 	</div>	
 
 	)
