@@ -75,7 +75,7 @@ export default class Cadastro extends React.Component{
         console.log(body)
 
         Axios
-        .post(BASE_URL,header, body)
+        .post(BASE_URL, body, header)
         .then((resposta) => {
             alert(resposta.data.message)
             
