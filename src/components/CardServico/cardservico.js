@@ -36,11 +36,9 @@ export default class CardServico extends React.Component{
 
     componentDidMount(){
         this.getJob() //Buscando lista de trabalho
-        console.log(this.state.jobs)
     }
 
     componentDidUpdate() {
-        console.log(this.state.idContrato)
         if(this.state.idContrato.length > 0){
             localStorage.setItem("idServico", JSON.stringify(this.state.idContrato));
         }
@@ -80,7 +78,6 @@ export default class CardServico extends React.Component{
 
     handleJobs = (jobs) => {
         this.setState({jobs: jobs}) // Recebendo lista de trabalho
-        console.log(this.state.jobs)
     }
 
 
@@ -98,8 +95,8 @@ export default class CardServico extends React.Component{
                             <p>{job.taken ? 'Contratado':'Não contratado'}</p> 
                         </CardContent>
                         <CardActions>
-                            <Button size="small" onClick = {() => this.Contratar(job.id,job.taken)}>
-                                Contratar Serviço
+                            <Button disabled={job.taken} size="small" onClick = {() => this.Contratar(job.id,job.taken)}>
+                                Contratar Serviço   
                             </Button>
                         </CardActions>
 
