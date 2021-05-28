@@ -13,7 +13,7 @@ import {theme} from '../theme'
 
 const BASE_URL = "https://labeninjas.herokuapp.com"
 const header = {
-   headers: {Authorization: "65cd8b44-bc64-4203-8eda-5e79cb914ff7"}
+   headers: {Authorization: "18e8e695-776e-4e9e-8aec-5a0680e34dc2"}
 }   
 
 
@@ -92,7 +92,7 @@ export default class CardServico extends React.Component{
                             <Typography variant="body2" component="p">{job.description}</Typography>
                             <p>R${job.price}</p>
                             <p>{job.paymentMethods.join(',')}</p>
-                            <p>{job.taken ? 'Contratado':'Não contratado'}</p> 
+                            
                         </CardContent>
                         <CardActions>
                             <Button disabled={job.taken} size="small" onClick = {() => this.Contratar(job.id,job.taken)}>
@@ -107,6 +107,7 @@ export default class CardServico extends React.Component{
 
         return(
             <Div>
+            <h1>CardServico</h1>
             {jobsList}
             </Div>
         )
