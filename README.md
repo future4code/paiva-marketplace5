@@ -14,10 +14,10 @@ Divisão base de tarefas :
 - Therge Fonsêca: Integração das partes e elaboração da matriz de escopo do trabalho.
 
 ## O que funciona
-
+Com exceção do botão para mostrar o carrinho, tudo funcionando.
 
 ## O que não funciona
-
+O componente carrinho em si, está funcionando perfeitamente, porém o botão AINDA não está renderizando o carrinho.
 
 ## Link Surge
 
