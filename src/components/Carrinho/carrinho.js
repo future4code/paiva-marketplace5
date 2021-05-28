@@ -100,12 +100,10 @@ export default class Carrinho extends React.Component{
             return <ThemeProvider theme={theme} key = {servico.id}>
                     <Card variant="outlined" >
                         <CardContent>
-                            <h1>{servico.id}</h1>
                             <Typography variant="h5" component="h2">{servico.title}</Typography>
                             <Typography variant="body2" component="p">{servico.description}</Typography>
                             <p>R${servico.price}</p>
                             <p>{servico.paymentMethods.join(',')}</p>
-                            <p>{servico.taken ? 'Contratado':'Não contratado'}</p> 
                         </CardContent>
                         <CardActions>
                             <Button size="small" onClick = {this.finalizarPedido}>
