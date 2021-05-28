@@ -36,13 +36,18 @@ export default class CardServico extends React.Component{
 
     componentDidMount(){
         this.getJob() //Buscando lista de trabalho
-        console.log(this.state.jobs)
     }
 
     componentDidUpdate() {
-        localStorage.setItem("idServico", JSON.stringify(this.state.idContrato));
 
+        if(this.state.idContrato.length > 0){
+            localStorage.setItem("idServico", JSON.stringify(this.state.idContrato));
+        }
+        
     }
+
+
+>>>>>>> 639684aa564b0751514a3bfda800577ba0bffdb8
     getJob = () => {
         Axios
             .get(BASE_URL + "/jobs",header)
@@ -60,22 +65,27 @@ export default class CardServico extends React.Component{
         }
 
         Axios
-            .post(BASE_URL +"/jobs/"+id,body,header)
+            .post(BASE_URL +"/jobs/"+id,body,header) //envia taken inverso ao que estava 
             .then((resposta) => {
                 const idServico = id
+<<<<<<< HEAD
                 this.setState({idContrato: [...this.state.idContrato,idServico]})
                 console.log(this.state.idContrato)
                 this.getJob()
+=======
+                this.setState({idContrato: [...this.state.idContrato,idServico]}) //Envia ID do serviço para o state
+                alert(resposta.data.message)
+                this.getJob() //atualiza a lista de trabalho
+>>>>>>> 639684aa564b0751514a3bfda800577ba0bffdb8
 
             })
             .catch((erro) => {
-                alert(erro.statusText)
+                alert(erro)
             })
     }
 
     handleJobs = (jobs) => {
         this.setState({jobs: jobs}) // Recebendo lista de trabalho
-        console.log(this.state.jobs)
     }
 
 
@@ -90,11 +100,19 @@ export default class CardServico extends React.Component{
                             <Typography variant="body2" component="p">{job.description}</Typography>
                             <p>R${job.price}</p>
                             <p>{job.paymentMethods.join(',')}</p>
+<<<<<<< HEAD
                             <p>{job.taken ? 'Contratado':'Não contratado'}</p>
                         </CardContent>
                         <CardActions>
                             <Button size="small" onClick = {() => this.Contratar(job.id,job.taken)}>
                                 Contratar Serviço
+=======
+                            <p>{job.taken ? 'Contratado':'Não contratado'}</p> 
+                        </CardContent>
+                        <CardActions>
+                            <Button disabled={job.taken} size="small" onClick = {() => this.Contratar(job.id,job.taken)}>
+                                Contratar Serviço   
+>>>>>>> 639684aa564b0751514a3bfda800577ba0bffdb8
                             </Button>
                         </CardActions>
 
