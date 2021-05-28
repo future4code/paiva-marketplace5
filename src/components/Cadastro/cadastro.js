@@ -2,9 +2,9 @@ import React from "react";
 import Axios from "axios";
 
 
-const BASE_URL = "https://labeninjas.herokuapp.com"
+const BASE_URL = "https://labeninjas.herokuapp.com/jobs"
 const header = {
-   headers: {Authorization: "65cd8b44-bc64-4203-8eda-5e79cb914ff7"}
+    headers: {Authorization: "18e8e695-776e-4e9e-8aec-5a0680e34dc2"}
 }   
 
 export default class Cadastro extends React.Component{
@@ -72,10 +72,13 @@ export default class Cadastro extends React.Component{
             "dueDate": this.state.date
         }
 
+        console.log(body)
+
         Axios
-        .post(BASE_URL + "/jobs",body,header)
+        .post(BASE_URL,header, body)
         .then((resposta) => {
             alert(resposta.data.message)
+            
         })
         .catch((erro) => {
             alert(erro.message)

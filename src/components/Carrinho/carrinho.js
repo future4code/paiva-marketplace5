@@ -12,7 +12,7 @@ import {theme} from '../theme'
 
 const BASE_URL = "https://labeninjas.herokuapp.com"
 const header = {
-   headers: {Authorization: "65cd8b44-bc64-4203-8eda-5e79cb914ff7"}
+   headers: {Authorization: "18e8e695-776e-4e9e-8aec-5a0680e34dc2"}
 }   
 
 export default class Carrinho extends React.Component{
@@ -100,12 +100,12 @@ export default class Carrinho extends React.Component{
             return <ThemeProvider theme={theme} key = {servico.id}>
                     <Card variant="outlined" >
                         <CardContent>
-                            <h1>{servico.id}</h1>
+                            
                             <Typography variant="h5" component="h2">{servico.title}</Typography>
                             <Typography variant="body2" component="p">{servico.description}</Typography>
                             <p>R${servico.price}</p>
                             <p>{servico.paymentMethods.join(',')}</p>
-                            <p>{servico.taken ? 'Contratado':'Não contratado'}</p> 
+                            
                         </CardContent>
                         <CardActions>
                             <Button size="small" onClick = {this.finalizarPedido}>

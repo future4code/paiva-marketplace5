@@ -5,6 +5,7 @@ import cart from './img/cart_ninja.png';
 import 'fontsource-roboto';
 import Button from '@material-ui/core/Button';
 import cardservico from './CardServico/cardservico'
+import Carrinho from './Carrinho/carrinho'
 
 const HeaderContainer = styled.div`
 width: 100%;
@@ -14,9 +15,9 @@ align-items: center;
 background: #B7ADD9;
 box-shadow: 0px 3px 6px;
 opacity: 1;
-position: fixed;
+/* position: fixed; */
 padding: 5px;
-margin-bottom: 100%;
+/* margin-bottom: 100%; */
 `
 const ButtonsContainer = styled.div`
 display: flex;
@@ -132,6 +133,11 @@ color: #E44E6D;
 }
 `
 export default class Header extends React.Component {
+
+  funcaoCarrinho = () => {
+    return <Carrinho/>
+  }
+
   render() {
     return (
       <HeaderContainer>
@@ -157,10 +163,10 @@ export default class Header extends React.Component {
        </SelectionBox> 
        <CartButton>
          <CartContainer>
-            <Cart src={cart}></Cart>
+            <Cart src={cart} onClick={this.funcaoCarrinho}></Cart>
          </CartContainer>
        </CartButton>
       </HeaderContainer>
     )
-  }
+  } 
 }
