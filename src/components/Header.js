@@ -6,6 +6,7 @@ import 'fontsource-roboto';
 import Button from '@material-ui/core/Button';
 import cardservico from './CardServico/cardservico'
 
+
 const HeaderContainer = styled.div`
 width: 100%;
 height: 18vh;
@@ -31,11 +32,50 @@ display: flex;
 justify-content: space-evenly;
 align-items: center;
 flex-direction: column;
+
+h4 {
+  margin-bottom: 0;
+  margin-right: 4vw;
+}
+`
+const SearchBox = styled.div `
+display: flex;
+align-items: center;
+`
+
+const TextField = styled.input`
+margin-top: 1vh;
+text-transform: uppercase;
+border: 3px solid #E44E6D;
+border-radius: 7px;
+opacity: 1;
+padding: 1vw;
+width: 400px;
+height: 0.2vh;
+text-align: center;
+color: #0AAA14;
+opacity: 1;
+background-color: white;
+color: #E44E6D;
+&:hover{
+  background-color: #E44E6D;
+  color: white;
+  transition: 150ms;
+}
+&:hover {
+    cursor: pointer;
+  }
+:focus {
+  outline: none;
+}
 `
 
 const ButtonGroup = styled.div`
-background-color: #EBEBF2;
-opacity: 0.9;
+background-color: #404040;
+&:hover{
+  background-color: #EBEBF2;
+  transition: 150ms;
+}
 `
 const Logo = styled.img`
 margin-top: 45px;
@@ -145,15 +185,18 @@ export default class Header extends React.Component {
           <ButtonClient>Login</ButtonClient>
         </ButtonsContainer>
         <SelectionBox>
-            <h3>Serviços por categoria</h3>
-            <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
-              <Button>Assistência Técnica</Button>
-              <Button>Consultoria</Button>
-              <Button>Web Design</Button>
-              <Button>Reformas</Button>
-              <Button>Serviços Domésticos</Button>
-              <Button>Aulas Particulares</Button>
-            </ButtonGroup>         
+          <SearchBox>
+          <h4>O Serviço que você precisa. Preço e qualidade.</h4>
+          <TextField id="filled-basic" label="Filled" variant="filled" placeholder='O que procura?' />
+          </SearchBox>
+          <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
+            <Button>Assistência Técnica</Button>
+            <Button>Consultoria</Button>
+            <Button>Web Design</Button>
+            <Button>Reformas</Button>
+            <Button>Serviços Domésticos</Button>
+            <Button>Aulas Particulares</Button>
+          </ButtonGroup>         
        </SelectionBox> 
        <CartButton>
          <CartContainer>
