@@ -6,7 +6,6 @@ import TwitterIcon from "./img/tweet.png"
 
 
 const FooterContainer = styled.div`
-margin-top: 90vh;
 background-color: #7763BF;
 display: flex;
 height: 18vh;

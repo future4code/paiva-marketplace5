@@ -17,13 +17,7 @@ const header = {
 }   
 
 
-const Div = styled.div`
-    display: grid;
-  grid-template-columns: 1fr 1fr ;
-  grid-template-rows: 1fr 1fr 1fr;
 
-
-`
 
 export default class CardServico extends React.Component{
 
@@ -57,24 +51,7 @@ export default class CardServico extends React.Component{
             })
     }
 
-    Contratar = (id,taken) => {
-        const body = {
-            "taken": !taken
-        }
 
-        Axios
-            .post(BASE_URL +"/jobs/"+id,body,header) //envia taken inverso ao que estava 
-            .then((resposta) => {
-                const idServico = id
-                this.setState({idContrato: [...this.state.idContrato,idServico]}) //Envia ID do serviço para o state
-                alert(resposta.data.message)
-                this.getJob() //atualiza a lista de trabalho
-
-            })
-            .catch((erro) => {
-                alert(erro)
-            })
-    }
 
     handleJobs = (jobs) => {
         this.setState({jobs: jobs}) // Recebendo lista de trabalho
@@ -85,7 +62,7 @@ export default class CardServico extends React.Component{
     render(){
 
         const jobsList = this.state.jobs.map((job) => {
-                return <ThemeProvider theme={theme} key = {job.id}>
+                return <ThemeProvider  key = {job.id}>
                     <Card variant="outlined" >
                         <CardContent>
                             <Typography variant="h5" component="h2">{job.title}</Typography>
@@ -106,10 +83,9 @@ export default class CardServico extends React.Component{
         }) 
 
         return(
-            <Div>
+
             <h1>CardServico</h1>
-            {jobsList}
-            </Div>
+
         )
     }
 }

@@ -60,7 +60,6 @@ class FiltroOrdenar extends React.Component {
       });
       this.setState({ listaOrdenada: ordemCrescente });
     } else if (e.target.value === "decrescente") {
-      console.log("entrei em decrescente");
       const ordemDecrescente = this.state.arrayServico.sort(function (a, b) {
         if (a.title < b.title) {
           return 1;
@@ -86,7 +85,6 @@ class FiltroOrdenar extends React.Component {
       });
       this.setState({ listaOrdenada: ordemCrescente });
     } else if (e.target.value === "decrescente") {
-      console.log("entrei em decrescente");
       const ordemDecrescente = this.state.arrayServico.sort(function (a, b) {
         if (a.price < b.price) {
           return 1;
@@ -112,7 +110,6 @@ class FiltroOrdenar extends React.Component {
       });
       this.setState({ listaOrdenada: ordemCrescente });
     } else if (e.target.value === "decrescente") {
-      console.log("entrei em decrescente");
       const ordemDecrescente = this.state.arrayServico.sort(function (a, b) {
         if (a.dueDate < b.dueDate) {
           return 1;
@@ -140,11 +137,6 @@ class FiltroOrdenar extends React.Component {
       }
     );
 
-    // const renderizaPagina = this.state.arrayServico.map((informacao)=> {
-    //   return (<div><p>{informacao.title}</p></div>)
-    // })
-
-    // console.log(this.state.listaOrdenada);
     return (
       <div>
         <div>

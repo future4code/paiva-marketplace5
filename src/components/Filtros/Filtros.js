@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import CardServico from '../CardServico/cardservico'
-import styled from 'styled-components'
+
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -9,6 +8,45 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { ThemeProvider } from '@material-ui/styles';
 import {theme} from '../theme'
+
+import Carrinho from '../Carrinho/carrinho';
+import InputLabel from '@material-ui/core/InputLabel';
+import NativeSelect from '@material-ui/core/NativeSelect';
+import Input from '@material-ui/core/Input';
+
+import styled from 'styled-components';
+
+const baseURL = "https://labeninjas.herokuapp.com/jobs";
+const header = {
+  headers: {
+    Authorization: "18e8e695-776e-4e9e-8aec-5a0680e34dc2"
+  }
+};
+
+const Servicos = styled.div`
+  display:flex;
+
+`
+
+const AreaFiltro = styled.div`
+  padding: 2rem;
+  width: 15vw;
+  margin-right: 2rem;
+  background-color: #ebebf2;
+`
+
+const Filtro = styled.div`
+  margin: 1rem;
+`
+const CardServico = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr ;
+  grid-template-rows: 1fr 1fr 1fr;
+`
+const Cards = styled.div`
+  margin: 1rem;
+`
+
 export default class Filtros extends React.Component {
 
     state = {
@@ -18,11 +56,30 @@ export default class Filtros extends React.Component {
         inputDescricao: "",
         servicos: [],
         listaOrdenada: [],
-        tipoOrdenamento: ""
+        tipoOrdenamento: "",
+        idContrato: [],
+        carrinho: false
+
       }
       componentDidMount() {
         this.getAllJobs()
+        this.getLocalStore()
+        
       }
+
+      componentDidUpdate() {
+        
+    }
+
+    getLocalStore = () =>{ //Pega os id's no Local Store
+      if(localStorage.getItem("idServico")){  
+          if (localStorage.getItem("idServico").length > 0) {
+              this.setState({idContrato: JSON.parse(localStorage.getItem("idServico"))})
+            }
+      }
+
+  }
+
     //Inputs controlados
       onChangeMin = (e) => {
         this.setState({inputMin: e.target.value})
@@ -39,19 +96,12 @@ export default class Filtros extends React.Component {
 
       //Método API
       getAllJobs = () => {
-        const baseURL = "https://labeninjas.herokuapp.com/jobs";
-        const header = {
-          headers: {
-            Authorization: "18e8e695-776e-4e9e-8aec-5a0680e34dc2"
-          }
-        };
+
         axios.get(baseURL, header)
           .then((res) => {
-            console.log(res.data.jobs)
             this.setState({servicos: res.data.jobs})
           })
           .catch((err) => {
-            console.log(err.data);
           });
       }
 
@@ -63,7 +113,9 @@ export default class Filtros extends React.Component {
           .filter((servico) => servico.price >= this.state.inputMin)
       }
 
-      ordenaTitulo = (e) => {
+
+      ordenaTitulo = (e) => { //Organiza em ordem alfabética 
+
         if (e.target.value === "crescente") {
           const ordemCrescente = this.state.servicos.sort(function (a, b) {
             if (a.title > b.title) {
@@ -75,7 +127,6 @@ export default class Filtros extends React.Component {
           });
           this.setState({ listaOrdenada: ordemCrescente });
         } else if (e.target.value === "decrescente") {
-          console.log("entrei em decrescente");
           const ordemDecrescente = this.state.servicos.sort(function (a, b) {
             if (a.title < b.title) {
               return 1;
@@ -89,7 +140,9 @@ export default class Filtros extends React.Component {
         }
       };
     
-      ordenaPrice = (e) => {
+
+      ordenaPrice = (e) => { //Organiza pelo preço
+
         if (e.target.value === "crescente") {
           const ordemCrescente = this.state.servicos.sort(function (a, b) {
             if (a.price > b.price) {
@@ -101,7 +154,6 @@ export default class Filtros extends React.Component {
           });
           this.setState({ listaOrdenada: ordemCrescente });
         } else if (e.target.value === "decrescente") {
-          console.log("entrei em decrescente");
           const ordemDecrescente = this.state.servicos.sort(function (a, b) {
             if (a.price < b.price) {
               return 1;
@@ -114,8 +166,10 @@ export default class Filtros extends React.Component {
           this.setState({ listaOrdenada: ordemDecrescente });
         }
       };
-    
-      ordenaDueDate = (e) => {
+
+     
+      ordenaDueDate = (e) => { //Organiza pela data de vencimento
+
         if (e.target.value === "crescente") {
           const ordemCrescente = this.state.servicos.sort(function (a, b) {
             if (a.dueDate > b.dueDate) {
@@ -127,7 +181,6 @@ export default class Filtros extends React.Component {
           });
           this.setState({ listaOrdenada: ordemCrescente });
         } else if (e.target.value === "decrescente") {
-          console.log("entrei em decrescente");
           const ordemDecrescente = this.state.servicos.sort(function (a, b) {
             if (a.dueDate < b.dueDate) {
               return 1;
@@ -141,20 +194,37 @@ export default class Filtros extends React.Component {
         }
       };
 
+
+      goCart = () =>{
+        this.setState({carrinho: true})
+      }
+
+      Contratar = (id,taken) => {
+        const body = {
+            "taken": !taken
+        }
+        axios
+            .post(baseURL +"/"+id,body,header) //envia taken inverso ao que estava 
+            .then((resposta) => {
+                const found = this.state.idContrato.find(element => element === id);
+
+                if(!found){
+                  this.setState({idContrato: [...this.state.idContrato,id]}) //Envia ID do serviço para o state
+                  localStorage.setItem("idServico", JSON.stringify(this.state.idContrato));
+                  this.getAllJobs()
+              }
+            })
+            .catch((erro) => {
+                alert(erro.message)
+            })
+    }
+
     render() {
       
       const servicos = this.filtroValores()
-      const teste = servicos.map((job) => {
-        // return (
-        //   <div>
-        //     <p><strong>Título:</strong> {servico.title}</p>
-        //     <p><strong>Descrição:</strong> {servico.description}</p>
-        //     <p><strong>Preço:</strong> {servico.price}</p>
-        //     <hr/>
-        //   </div>
-        // )
-
+      const cardServico = servicos.map((job) => {
         return <ThemeProvider theme={theme} key = {job.id}>
+          <Cards>
             <Card variant="outlined" >
                 <CardContent>
                     <Typography variant="h5" component="h2">{job.title}</Typography>
@@ -162,71 +232,85 @@ export default class Filtros extends React.Component {
                     <p>R${job.price}</p>
                     <p>{job.paymentMethods.join(',')}</p>
                     <p>{job.dueDate}</p>
-                    
+
+                    {job.taken? 'Serviço Indisponível':'Serviço Disponível'}
                 </CardContent>
                 <CardActions>
-                    <Button disabled={job.taken} size="small" onClick = {() => this.Contratar(job.id,job.taken)}>
+                    <Button variant="contained" color="primary" disabled={job.taken} size="small" onClick = {() => this.Contratar(job.id,job.taken)}>
+
                         Contratar Serviço   
                     </Button>
                 </CardActions>
 
             </Card>
+
+          </Cards>
     </ThemeProvider>
-      })
+      })      
 
+      if(this.state.carrinho){
+        return <Carrinho/>
+      }
 
-      // const jobsList = this.state.jobs.map((job) => {
-        
-
-
-      console.log(teste)
       return (
-          <div>
+          <Servicos>
+            <AreaFiltro>
               <h1>Filtros</h1>
-              <label>Valor mínimo: </label>
-              <input type = "number"
-                onChange={this.onChangeMin}
-              />
+              <Filtro>  
+                <InputLabel>Valor mínimo: </InputLabel>
+                <Input type = "number"
+                  onChange={this.onChangeMin}
+                />
+              </Filtro>
+              <Filtro>
+                <InputLabel>Valor máximo: </InputLabel>
+                <Input type = "number"
+                  onChange={this.onChangeMax}
+                />
+              </Filtro>
+              <Filtro>
+                <InputLabel>Título: </InputLabel>
+                <Input
+                  onChange={this.onChangeInputTitulo}
+                />
+              </Filtro>
+              <Filtro>
+              <InputLabel>Ordenamento por titulo</InputLabel>
+                <NativeSelect onChange={this.ordenaTitulo}>
+                  <option value={"default"}>Selecione</option>
+                  <option value={"crescente"}>Crescente</option>
+                  <option value={"decrescente"}>Decrescente</option>
+                </NativeSelect>
+              </Filtro>
 
-              <br/>
 
-              <label>Valor máximo: </label>
-              <input type = "number"
-                onChange={this.onChangeMax}
-              />
-                          
-              <br/>
+              <Filtro>
+              <InputLabel>Ordenamento por preço</InputLabel>
+                <NativeSelect onChange={this.ordenaPrice}>
+                  <option value={"default"}>Selecione</option>
+                  <option value={"crescente"}>Crescente</option>
+                  <option value={"decrescente"}>Decrescente</option>
 
-              <label>Título: </label>
-              <input
-                onChange={this.onChangeInputTitulo}
-              />
-              
-              <br/>
+                </NativeSelect>
+              </Filtro>
 
-              <label>Ordenamento por titulo</label>
-              <select onChange={this.ordenaTitulo}>
-                <option value={"default"}>Selecione</option>
-                <option value={"crescente"}>crescente</option>
-                <option value={"decrescente"}>decrescente</option>
-              </select>
+              <Filtro>
+                <InputLabel>Ordenamento por prazo</InputLabel>
+                <NativeSelect onChange={this.ordenaDueDate}>
+                  <option value={"default"}>Selecione</option>
+                  <option value={"crescente"}>Crescente</option>
+                  <option value={"decrescente"}>Decrescente</option>
 
-              <label>Ordenamento por preço</label>
-              <select onChange={this.ordenaPrice}>
-                <option value={"default"}>Selecione</option>
-                <option value={"crescente"}>crescente</option>
-                <option value={"decrescente"}>decrescente</option>
-              </select>
+                </NativeSelect>
+              </Filtro>
 
-              <label>Ordenamento por prazo</label>
-              <select onChange={this.ordenaDueDate}>
-                <option value={"default"}>Selecione</option>
-                <option value={"crescente"}>crescente</option>
-                <option value={"decrescente"}>decrescente</option>
-              </select>
+            </AreaFiltro>
+            <CardServico>
+              {cardServico}
+            </CardServico>
 
-              {teste}
-            </div>
+          </Servicos>
+
         )
     }
 }
