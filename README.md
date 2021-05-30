@@ -10,18 +10,19 @@ Divisão base de tarefas :
 - Bruno Santos: Execução da dinâmica de ordenação;
 - Carlos Henrique: Execução da dinâmica de filtros;
 - Felipe Assis: Integração e estilização do Header e Footer;
-- Silvio Dias: Execução da dinâmica de inclusão de produtos no carrinho;
+- Silvio Dias: Execução da dinâmica de inclusão de produtos no carrinho,cards e layout;
 - Therge Fonsêca: Integração das partes e elaboração da matriz de escopo do trabalho.
 
 ## O que funciona
-Com exceção do botão para mostrar o carrinho, tudo funcionando.
+Tudo funcionando
 
 ## O que não funciona
-O componente carrinho em si, está funcionando perfeitamente, porém o botão AINDA não está renderizando o carrinho.
+Quando alterado, carrinho não atualiza automáticamente na header.
+
 
 ## Link Surge
 
-http://labeninja5.surge.sh
+https://snotty-wilderness.surge.sh/
 
 ## Imagens do projeto
-![tela](https://user-images.githubusercontent.com/81280346/120034865-128af280-bfd4-11eb-86c4-08bc0293d4f8.jpg)
+![Screenshot_1](https://user-images.githubusercontent.com/57494579/120117104-fd43ce80-c161-11eb-8cc5-3bbf81c60724.png)
