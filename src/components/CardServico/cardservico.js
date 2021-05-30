@@ -57,24 +57,7 @@ export default class CardServico extends React.Component{
             })
     }
 
-    Contratar = (id,taken) => {
-        const body = {
-            "taken": !taken
-        }
 
-        Axios
-            .post(BASE_URL +"/jobs/"+id,body,header) //envia taken inverso ao que estava 
-            .then((resposta) => {
-                const idServico = id
-                this.setState({idContrato: [...this.state.idContrato,idServico]}) //Envia ID do serviço para o state
-                alert(resposta.data.message)
-                this.getJob() //atualiza a lista de trabalho
-
-            })
-            .catch((erro) => {
-                alert(erro)
-            })
-    }
 
     handleJobs = (jobs) => {
         this.setState({jobs: jobs}) // Recebendo lista de trabalho

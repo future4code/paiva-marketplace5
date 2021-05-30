@@ -9,6 +9,15 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { ThemeProvider } from '@material-ui/styles';
 import {theme} from '../theme'
+import Carrinho from '../Carrinho/carrinho';
+
+const baseURL = "https://labeninjas.herokuapp.com/jobs";
+const header = {
+  headers: {
+    Authorization: "18e8e695-776e-4e9e-8aec-5a0680e34dc2"
+  }
+};
+
 export default class Filtros extends React.Component {
 
     state = {
@@ -18,11 +27,21 @@ export default class Filtros extends React.Component {
         inputDescricao: "",
         servicos: [],
         listaOrdenada: [],
-        tipoOrdenamento: ""
+        tipoOrdenamento: "",
+        idContrato: [],
+        carrinho: false
       }
       componentDidMount() {
         this.getAllJobs()
       }
+
+      componentDidUpdate() {
+        if(this.state.idContrato.length > 0){
+            localStorage.setItem("idServico", JSON.stringify(this.state.idContrato));
+        }
+        
+    }
+
     //Inputs controlados
       onChangeMin = (e) => {
         this.setState({inputMin: e.target.value})
@@ -39,12 +58,7 @@ export default class Filtros extends React.Component {
 
       //Método API
       getAllJobs = () => {
-        const baseURL = "https://labeninjas.herokuapp.com/jobs";
-        const header = {
-          headers: {
-            Authorization: "18e8e695-776e-4e9e-8aec-5a0680e34dc2"
-          }
-        };
+
         axios.get(baseURL, header)
           .then((res) => {
             console.log(res.data.jobs)
@@ -63,7 +77,7 @@ export default class Filtros extends React.Component {
           .filter((servico) => servico.price >= this.state.inputMin)
       }
 
-      ordenaTitulo = (e) => {
+      ordenaTitulo = (e) => { //Organiza em ordem alfabética 
         if (e.target.value === "crescente") {
           const ordemCrescente = this.state.servicos.sort(function (a, b) {
             if (a.title > b.title) {
@@ -89,7 +103,7 @@ export default class Filtros extends React.Component {
         }
       };
     
-      ordenaPrice = (e) => {
+      ordenaPrice = (e) => { //Organiza pelo preço
         if (e.target.value === "crescente") {
           const ordemCrescente = this.state.servicos.sort(function (a, b) {
             if (a.price > b.price) {
@@ -114,8 +128,8 @@ export default class Filtros extends React.Component {
           this.setState({ listaOrdenada: ordemDecrescente });
         }
       };
-    
-      ordenaDueDate = (e) => {
+     
+      ordenaDueDate = (e) => { //Organiza pela data de vencimento
         if (e.target.value === "crescente") {
           const ordemCrescente = this.state.servicos.sort(function (a, b) {
             if (a.dueDate > b.dueDate) {
@@ -141,10 +155,26 @@ export default class Filtros extends React.Component {
         }
       };
 
+      Contratar = (id,taken) => {
+        const body = {
+            "taken": !taken
+        }
+
+        axios
+            .post(baseURL +"/"+id,body,header) //envia taken inverso ao que estava 
+            .then((resposta) => {
+                const idServico = id
+                this.setState({idContrato: [...this.state.idContrato,idServico],carrinho: true }) //Envia ID do serviço para o state
+            })
+            .catch((erro) => {
+                alert(erro.message)
+            })
+    }
+
     render() {
       
       const servicos = this.filtroValores()
-      const teste = servicos.map((job) => {
+      const cardServico = servicos.map((job) => {
         return <ThemeProvider theme={theme} key = {job.id}>
             <Card variant="outlined" >
                 <CardContent>
@@ -163,14 +193,12 @@ export default class Filtros extends React.Component {
 
             </Card>
     </ThemeProvider>
-      })
+      })      
 
+      if(this.state.carrinho){
+        return <Carrinho/>
+      }
 
-      // const jobsList = this.state.jobs.map((job) => {
-        
-
-
-      console.log(teste)
       return (
           <div>
               <h1>Filtros</h1>
@@ -216,7 +244,7 @@ export default class Filtros extends React.Component {
                 <option value={"decrescente"}>decrescente</option>
               </select>
 
-              {teste}
+              {cardServico}
             </div>
         )
     }

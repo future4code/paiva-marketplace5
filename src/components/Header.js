@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import logo from './img/labeninjas2.png';
 import cart from './img/cart_ninja.png';
 import Button from '@material-ui/core/Button';
-import cardservico from './CardServico/cardservico'
 import Carrinho from './Carrinho/carrinho'
+import Cadastro from './Cadastro/cadastro';
+import CardServico from './CardServico/cardservico';
 
 const HeaderContainer = styled.div`
 width: 100%;
@@ -14,9 +15,7 @@ align-items: center;
 background: #B7ADD9;
 box-shadow: 0px 3px 6px;
 opacity: 1;
-/* position: fixed; */
 padding: 5px;
-/* margin-bottom: 100%; */
 `
 const ButtonsContainer = styled.div`
 display: flex;
@@ -133,20 +132,24 @@ color: #E44E6D;
 `
 export default class Header extends React.Component {
 
-  funcaoCarrinho = () => {
-    return <Carrinho/>
+  state ={
+    pagina: 'servicos'
   }
 
+
   render() {
+
+
     return (
+      <div>
       <HeaderContainer>
         <LogoButton>
           <LogoContainer>
-            <Logo src={logo}></Logo>
+            <Logo src={logo} onClick={() => this.props.btnPagina('servicos')}></Logo>
           </LogoContainer>
         </LogoButton>
         <ButtonsContainer>
-          <ButtonService>Ofertar Serviço</ButtonService>
+          <ButtonService onClick={() => this.props.btnPagina('cadastro')}>Ofertar Serviço</ButtonService>
           <ButtonClient>Login</ButtonClient>
         </ButtonsContainer>
         <SelectionBox>
@@ -162,10 +165,12 @@ export default class Header extends React.Component {
        </SelectionBox> 
        <CartButton>
          <CartContainer>
-            <Cart src={cart} onClick={this.funcaoCarrinho}></Cart>
+            <Cart src={cart} onClick={() => this.props.btnPagina('carrinho')}></Cart>
          </CartContainer>
        </CartButton>
       </HeaderContainer>
+      </div>
+
     )
   } 
 }
