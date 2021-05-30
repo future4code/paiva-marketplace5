@@ -127,7 +127,6 @@ export default class Filtros extends React.Component {
           });
           this.setState({ listaOrdenada: ordemCrescente });
         } else if (e.target.value === "decrescente") {
-          console.log("entrei em decrescente");
           const ordemDecrescente = this.state.servicos.sort(function (a, b) {
             if (a.title < b.title) {
               return 1;
@@ -155,7 +154,6 @@ export default class Filtros extends React.Component {
           });
           this.setState({ listaOrdenada: ordemCrescente });
         } else if (e.target.value === "decrescente") {
-          console.log("entrei em decrescente");
           const ordemDecrescente = this.state.servicos.sort(function (a, b) {
             if (a.price < b.price) {
               return 1;
@@ -183,7 +181,6 @@ export default class Filtros extends React.Component {
           });
           this.setState({ listaOrdenada: ordemCrescente });
         } else if (e.target.value === "decrescente") {
-          console.log("entrei em decrescente");
           const ordemDecrescente = this.state.servicos.sort(function (a, b) {
             if (a.dueDate < b.dueDate) {
               return 1;
@@ -206,16 +203,6 @@ export default class Filtros extends React.Component {
         const body = {
             "taken": !taken
         }
-        
-        
-        const checkCarrinho = this.state.idContrato.find(checkId => id === checkId)
-
-
-      
-
-      
-
-        console.log('True',checkCarrinho)
         axios
             .post(baseURL +"/"+id,body,header) //envia taken inverso ao que estava 
             .then((resposta) => {
@@ -224,7 +211,6 @@ export default class Filtros extends React.Component {
                 if(!found){
                   this.setState({idContrato: [...this.state.idContrato,id]}) //Envia ID do serviço para o state
                   localStorage.setItem("idServico", JSON.stringify(this.state.idContrato));
-                  console.log(this.state.idContrato)
                   this.getAllJobs()
               }
             })

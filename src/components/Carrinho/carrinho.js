@@ -27,7 +27,6 @@ export default class Carrinho extends React.Component{
 
     getLocalStore = () =>{ //Pega os id's no Local Store
         if(localStorage.getItem("idServico")){  
-            console.log(JSON.parse(localStorage.getItem("idServico")))
             if (localStorage.getItem("idServico").length > 0) {
                 const idServico = JSON.parse(localStorage.getItem("idServico"))
                 return idServico
@@ -83,7 +82,6 @@ export default class Carrinho extends React.Component{
         })
 
         this.setState({servicosCarrinho: pedidoFiltrado})
-        console.log(pedidoFiltrado)
     
        const idFiltrado = pedidoFiltrado.map((pedido) => {
             return pedido.id

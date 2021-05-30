@@ -66,14 +66,12 @@ export default class Cadastro extends React.Component{
     }
 
     handlePaypal = (event) => {
-        this.setState({paypal: event.target.checked})
-        console.log(this.state.paypal)
-        
+        this.setState({paypal: event.target.checked})     
     }
 
     handleBoleto = (event) => {
         this.setState({boleto: event.target.checked})
-        console.log(this.state.boleto)
+
         
     }
 
@@ -99,8 +97,6 @@ export default class Cadastro extends React.Component{
             "paymentMethods":metodoPagamento,
             "dueDate": this.state.date
         }
-
-        console.log(body)
 
         Axios
         .post(BASE_URL, body, header)
