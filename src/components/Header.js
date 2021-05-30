@@ -4,9 +4,11 @@ import logo from './img/labeninjas2.png';
 import cart from './img/cart_ninja.png';
 import cartCheio from './img/carrinhocheio.png';
 import Button from '@material-ui/core/Button';
+
 import Carrinho from './Carrinho/carrinho'
 import Cadastro from './Cadastro/cadastro';
 import CardServico from './CardServico/cardservico';
+
 
 const HeaderContainer = styled.div`
 width: 100%;
@@ -116,6 +118,7 @@ color: #E44E6D;
 `
 export default class Header extends React.Component {
 
+
   state ={
     pagina: 'servicos',
   }
@@ -127,6 +130,7 @@ export default class Header extends React.Component {
       }
     }
     return false
+
   }
 
   render() {
@@ -143,7 +147,9 @@ export default class Header extends React.Component {
 
        <CartButton>
          <CartContainer>
+
             <Cart src={JSON.parse(localStorage.getItem("idServico")).length > 0 ? cartCheio : cart} onClick={() => this.props.btnPagina('carrinho')}></Cart>
+
          </CartContainer>
        </CartButton>
       </HeaderContainer>
