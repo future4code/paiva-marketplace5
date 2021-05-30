@@ -98,20 +98,18 @@ export default class Carrinho extends React.Component{
 
     }
 
-
-
-
-
     render(){
 
         const getServicos = this.state.servicosCarrinho.map((servico) =>{
             return <ThemeProvider theme={theme} key = {servico.id}>
                     <Card variant="outlined" >
                         <CardContent>
+
                             <Typography variant="h5" component="h2">{servico.title}</Typography>
                             <Typography variant="body2" component="p">{servico.description}</Typography>
                             <p>R${servico.price}</p>
                             <p>{servico.paymentMethods.join(',')}</p>
+
                         </CardContent>
                         <CardActions>
                             <Button size="small" onClick = {() => this.finalizarPedido(servico.id)}>

@@ -11,6 +11,7 @@ import {theme} from '../theme'
 const BASE_URL = "https://labeninjas.herokuapp.com/jobs"
 const header = {
     headers: {Authorization: "18e8e695-776e-4e9e-8aec-5a0680e34dc2"}
+
 }
 
 const BodyCadastro = styled.div`
@@ -32,6 +33,8 @@ const InputCadastro = styled.div`
     margin-bottom: 2rem;
     width:100%;
 `
+}   
+
 export default class Cadastro extends React.Component{
 
     state = {

@@ -3,10 +3,7 @@ import styled from 'styled-components';
 import logo from './img/labeninjas2.png';
 import cart from './img/cart_ninja.png';
 import cartCheio from './img/carrinhocheio.png';
-import Button from '@material-ui/core/Button';
-import Carrinho from './Carrinho/carrinho'
-import Cadastro from './Cadastro/cadastro';
-import CardServico from './CardServico/cardservico';
+
 
 const HeaderContainer = styled.div`
 width: 100%;
