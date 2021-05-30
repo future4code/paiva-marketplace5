@@ -33,7 +33,7 @@ const InputCadastro = styled.div`
     margin-bottom: 2rem;
     width:100%;
 `
-}   
+
 
 export default class Cadastro extends React.Component{
 
