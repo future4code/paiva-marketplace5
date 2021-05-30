@@ -95,11 +95,9 @@ export default class Filtros extends React.Component {
 
         axios.get(baseURL, header)
           .then((res) => {
-            console.log(res.data.jobs)
             this.setState({servicos: res.data.jobs})
           })
           .catch((err) => {
-            console.log(err.data);
           });
       }
 
@@ -197,14 +195,27 @@ export default class Filtros extends React.Component {
         const body = {
             "taken": !taken
         }
+        
+        
+        const checkCarrinho = this.state.idContrato.find(checkId => id === checkId)
 
+
+      
+
+      
+
+        console.log('True',checkCarrinho)
         axios
             .post(baseURL +"/"+id,body,header) //envia taken inverso ao que estava 
             .then((resposta) => {
-                this.setState({idContrato: [...this.state.idContrato,id]}) //Envia ID do serviço para o state
-                console.log("State",this.state.idContrato)
-                localStorage.setItem("idServico", JSON.stringify(this.state.idContrato));
-                console.log("LocalStorage",JSON.parse(localStorage.getItem("idServico")))
+                const found = this.state.idContrato.find(element => element === id);
+
+                if(!found){
+                  this.setState({idContrato: [...this.state.idContrato,id]}) //Envia ID do serviço para o state
+                  localStorage.setItem("idServico", JSON.stringify(this.state.idContrato));
+                  console.log(this.state.idContrato)
+                  this.getAllJobs()
+              }
             })
             .catch((erro) => {
                 alert(erro.message)

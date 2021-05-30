@@ -143,7 +143,10 @@ export default class Header extends React.Component {
 
        <CartButton>
          <CartContainer>
-            <Cart src={JSON.parse(localStorage.getItem("idServico")).length > 0 ? cartCheio : cart} onClick={() => this.props.btnPagina('carrinho')}></Cart>
+            <Cart src={localStorage.getItem("idServico") && JSON.parse(localStorage.getItem("idServico")).length > 0 ?
+             cartCheio : 
+             cart} 
+             onClick={() => this.props.btnPagina('carrinho')}></Cart>
          </CartContainer>
        </CartButton>
       </HeaderContainer>
