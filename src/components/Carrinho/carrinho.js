@@ -127,7 +127,7 @@ export default class Carrinho extends React.Component{
         return(
             <div>
                 <h1>Carrinho</h1>
-                {JSON.parse(localStorage.getItem("idServico")).length > 0 ? getServicos: "Carrinho está vazio"}
+                {localStorage.getItem("idServico") && JSON.parse(localStorage.getItem("idServico")).length > 0 ? getServicos: "Carrinho está vazio"}
             </div>
 
             
