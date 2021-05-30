@@ -1,10 +1,10 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
-export const theme = createMuiTheme({
+ export const theme = createMuiTheme({
   palette: {
     primary: {
       // light: será calculada com base em palette.primary.main,
-      main: '#a19d19',
+      main: '#7763bf',
       // dark: será calculada com base em palette.primary.main,
       // contrastText: será calculada para contrastar com palette.primary.main
     },

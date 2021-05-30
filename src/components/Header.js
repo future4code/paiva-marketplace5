@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import logo from './img/labeninjas2.png';
 import cart from './img/cart_ninja.png';
+import cartCheio from './img/carrinhocheio.png';
 import Button from '@material-ui/core/Button';
 import Carrinho from './Carrinho/carrinho'
 import Cadastro from './Cadastro/cadastro';
@@ -11,50 +12,33 @@ const HeaderContainer = styled.div`
 width: 100%;
 height: 18vh;
 display: flex;
+justify-content: space-between;
 align-items: center;
 background: #B7ADD9;
 box-shadow: 0px 3px 6px;
 opacity: 1;
 padding: 5px;
 `
-const ButtonsContainer = styled.div`
-display: flex;
-flex-direction: column;
-padding: 2vw;
-`
 
-const SelectionBox = styled.div`
-width: 70%;
-height: 15vh;
-display: flex;
-justify-content: space-evenly;
-align-items: center;
-flex-direction: column;
-`
-
-const ButtonGroup = styled.div`
-background-color: #EBEBF2;
-opacity: 0.9;
-`
 const Logo = styled.img`
 margin-top: 45px;
-height: 95%;
+height: 160px;
 background: none;
 `
 const Cart = styled.img`
 margin-top: 65px;
-height: 100%;
+height: 80%;
 background: none;
 `
 const LogoContainer = styled.div`
-height:80%;
 display :flex;
 align-items:center;
 justify-content:center;
 background-color: none;
 `
 const LogoButton = styled.a`
-height: 100%;
+display: flex;
+align-items: center;
 background-color: none;
 border:0;
 &:hover {
@@ -133,43 +117,36 @@ color: #E44E6D;
 export default class Header extends React.Component {
 
   state ={
-    pagina: 'servicos'
+    pagina: 'servicos',
   }
 
+  checkCarrinho = () =>{
+    if(localStorage.getItem("idServico")){  
+      if (localStorage.getItem("idServico").length >= 1) {
+        return true 
+      }
+    }
+    return false
+  }
 
   render() {
 
 
     return (
-      <div>
       <HeaderContainer>
         <LogoButton>
           <LogoContainer>
             <Logo src={logo} onClick={() => this.props.btnPagina('servicos')}></Logo>
           </LogoContainer>
-        </LogoButton>
-        <ButtonsContainer>
           <ButtonService onClick={() => this.props.btnPagina('cadastro')}>Ofertar Serviço</ButtonService>
-          <ButtonClient>Login</ButtonClient>
-        </ButtonsContainer>
-        <SelectionBox>
-            <h3>Serviços por categoria</h3>
-            <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
-              <Button>Assistência Técnica</Button>
-              <Button>Consultoria</Button>
-              <Button>Web Design</Button>
-              <Button>Reformas</Button>
-              <Button>Serviços Domésticos</Button>
-              <Button>Aulas Particulares</Button>
-            </ButtonGroup>         
-       </SelectionBox> 
+        </LogoButton>
+
        <CartButton>
          <CartContainer>
-            <Cart src={cart} onClick={() => this.props.btnPagina('carrinho')}></Cart>
+            <Cart src={JSON.parse(localStorage.getItem("idServico")).length > 0 ? cartCheio : cart} onClick={() => this.props.btnPagina('carrinho')}></Cart>
          </CartContainer>
        </CartButton>
       </HeaderContainer>
-      </div>
 
     )
   } 

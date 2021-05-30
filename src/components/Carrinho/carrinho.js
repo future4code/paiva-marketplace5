@@ -27,6 +27,7 @@ export default class Carrinho extends React.Component{
 
     getLocalStore = () =>{ //Pega os id's no Local Store
         if(localStorage.getItem("idServico")){  
+            console.log(JSON.parse(localStorage.getItem("idServico")))
             if (localStorage.getItem("idServico").length > 0) {
                 const idServico = JSON.parse(localStorage.getItem("idServico"))
                 return idServico
@@ -66,7 +67,7 @@ export default class Carrinho extends React.Component{
         Axios
             .post(BASE_URL +"/"+id,body,header) //envia taken falso
             .then((resposta) => {
-                alert(resposta.data.message)
+                alert('Pedido cancelado')
 
             })
             .catch((erro) => {
@@ -130,7 +131,7 @@ export default class Carrinho extends React.Component{
         return(
             <div>
                 <h1>Carrinho</h1>
-                {getServicos}
+                {JSON.parse(localStorage.getItem("idServico")).length > 0 ? getServicos: "Carrinho está vazio"}
             </div>
 
             

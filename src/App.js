@@ -1,14 +1,13 @@
 import React from 'react'
-// import { AppContainer } from './components/AppContainer'
-import FiltroOrdenar from './components/FiltroOrdenar/FiltroOrdenar'
-import Filtros from './components/Filtros/Filtros';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Cadastro from './components/Cadastro/cadastro'
-import Carrinho from './components/Carrinho/carrinho'
-import CardServico from './components/CardServico/cardservico'
 import Home from './components/home'
 
+import styled from 'styled-components';
+
+const DivPrincipal = styled.div`
+	padding:2rem;
+`
 
 class App extends React.Component {
 	state = {
@@ -17,7 +16,6 @@ class App extends React.Component {
 
 	handlePagina = (pagina) => {
 		this.setState({paginacao: pagina})
-		alert(this.state.paginacao)
 	}
 
 	render(){
@@ -27,9 +25,12 @@ class App extends React.Component {
 		someFunction={this.handleFunction}
 		btnPagina = {this.handlePagina}
 		/>
-		<Home
-		pagina = {this.state.paginacao}
-		/>
+		<DivPrincipal>
+			<Home
+			pagina = {this.state.paginacao}
+			/>
+		</DivPrincipal>
+
 
 		<Footer />
 	</div>

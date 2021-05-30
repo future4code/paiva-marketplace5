@@ -17,13 +17,7 @@ const header = {
 }   
 
 
-const Div = styled.div`
-    display: grid;
-  grid-template-columns: 1fr 1fr ;
-  grid-template-rows: 1fr 1fr 1fr;
 
-
-`
 
 export default class CardServico extends React.Component{
 
@@ -68,7 +62,7 @@ export default class CardServico extends React.Component{
     render(){
 
         const jobsList = this.state.jobs.map((job) => {
-                return <ThemeProvider theme={theme} key = {job.id}>
+                return <ThemeProvider  key = {job.id}>
                     <Card variant="outlined" >
                         <CardContent>
                             <Typography variant="h5" component="h2">{job.title}</Typography>
@@ -89,10 +83,7 @@ export default class CardServico extends React.Component{
         }) 
 
         return(
-            <Div>
             <h1>CardServico</h1>
-            {jobsList}
-            </Div>
         )
     }
 }
